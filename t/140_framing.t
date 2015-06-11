@@ -23,7 +23,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 use Test::More tests => 21;
 use v5.14;
-use JSON::LD 'expand';
+use JSON::LD 'compact';
 use JSON 'from_json';
 use Test::Differences;
 use File::Slurp 'read_file';
@@ -47,7 +47,7 @@ foreach ( glob( 't_data/frame-*-in.jsonld' ) ) {
     local $TODO = exists $TODO_TESTS{$i}
         ? "Test $_ not yet implemented"
         : undef;
-    my $got_out      = from_json( expand( $in, { frame => $frame } ) );
+    my $got_out      = from_json( compact( $in, { frame => $frame } ) );
     my $expected_out = from_json( read_file( $out ) );
     eq_or_diff $got_out, $expected_out, "Test $in";
 }
