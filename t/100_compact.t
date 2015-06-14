@@ -47,7 +47,7 @@ foreach ( glob( 't_data/compact-*-in.jsonld' ) ) {
     local $TODO = exists $TODO_TESTS{$i}
         ? "Test $_ not yet implemented"
         : undef;
-    my $got_out      = from_json( compact( $in, $context ) );
+    my $got_out      = from_json( compact( read_file( $in ), $context ) );
     my $expected_out = from_json( read_file( $out ) );
     eq_or_diff $got_out, $expected_out, "Test $in";
 }
